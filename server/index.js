@@ -2,7 +2,8 @@ const express = require("express");
 
 const app = express();
 
-const PORT = process.env.PORT || 3000; // Use environment variable or default to 3000
+// Fix: Parse PORT from ENV variables
+const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
     res.send(`Hello from server on port ${PORT}`);
@@ -11,6 +12,7 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
 
 
 
