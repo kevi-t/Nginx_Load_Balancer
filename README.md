@@ -24,71 +24,46 @@ Ensure you have the following installed on your system:
 
 ## **Setup Instructions**  
 
-### **1. Build the Docker Image**  
-```sh
-docker build . -t myserver
+Build the Docker Image: docker build . -t myserver
 
 ## **Run Multiple Backend Servers in Docker Containers**
-docker run -p 3001:3000 -d myserver
-docker run -p 3002:3000 -d myserver
-docker run -p 3003:3000 -d myserver
+docker run -p 3001:3000 -d myserver<br>
+docker run -p 3002:3000 -d myserver<br>
+docker run -p 3003:3000 -d myserver<br>
 docker run -p 3004:3000 -d myserver
 
 ## Verify Running Containers
-docker ps
-
+docker ps<br>
 You should see multiple containers running with different port mappings.
 
 ## Testing the Load Balancer
-Start NGINX
-Ensure that NGINX is installed and configured correctly. Use the provided nginx.conf configuration file to set up the load balancer.
-If you need to reload NGINX after making changes to the configuration file:
-
-nginx -s reload
+Start NGINX: nginx <br>
+Ensure that NGINX is installed and configured correctly. <br>
+Use the provided nginx.conf configuration file to set up the load balancer.<br>
+If you need to reload NGINX after making changes to the configuration file: nginx -s reload
 
 ## Make Requests to the Load Balancer
-Send multiple requests to NGINX (running on port 8082) using cURL or a browser:
-
-curl http://localhost:8082/
-
+Send multiple requests to NGINX (running on port 8082) using cURL or a browser: curl http://localhost:8082/<br>
 Each request should be handled by a different backend server, confirming the Round Robin balancing strategy.
-Stopping and Restarting the Containers
-If you need to stop and remove the containers:
 
-sh
-Copy
-Edit
-docker ps -q --filter ancestor=myserver | ForEach-Object { docker stop $_; docker rm $_ }
-(For Windows PowerShell, replace ForEach-Object with a for loop if necessary.)
+## **Stopping and Restarting the Containers**
 
-Or manually:
+To restart the containers after stopping:<br>
+docker run -p 3001:3000 -d myserver<br>
+docker run -p 3002:3000 -d myserver<br>
+docker run -p 3003:3000 -d myserver<br>
+docker run -p 3004:3000 -d myserver<br>
 
-sh
-Copy
-Edit
-docker stop <CONTAINER_ID_1> <CONTAINER_ID_2> <CONTAINER_ID_3> <CONTAINER_ID_4>
-docker rm <CONTAINER_ID_1> <CONTAINER_ID_2> <CONTAINER_ID_3> <CONTAINER_ID_4>
-To restart the containers after stopping:
+## **Folder Structure**
+/mysite<br>
+│── /server<br>
+│   ├── Dockerfile<br>
+│   ├── index.js<br>
+│   ├── package.json<br>
+│── /nginx<br>
+│   ├── nginx.conf<br>
 
-sh
-Copy
-Edit
-docker run -p 3001:3000 -d myserver
-docker run -p 3002:3000 -d myserver
-docker run -p 3003:3000 -d myserver
-docker run -p 3004:3000 -d myserver
-Folder Structure
-bash
-Copy
-Edit
-/mysite
-│── /server
-│   ├── Dockerfile
-│   ├── index.js
-│   ├── package.json
-│── /nginx
-│   ├── nginx.conf
-Contributing
+## **Contributing**
 Feel free to fork this repository and submit pull requests. Contributions are welcome!
 
 ## License
